@@ -10,7 +10,7 @@ using namespace std;
 int main()
 {
 	//set the words into a list along with corresponding hints
-	enum fields {WORD, HINT, NUM_FIELDS};
+	enum fields { WORD, HINT, NUM_FIELDS };
 	const int NUM_WORDS = 10;
 	const string WORDS[NUM_WORDS][NUM_FIELDS] =
 	{
@@ -25,21 +25,55 @@ int main()
 		{"wallet", "Comes with some dollar bills and your ID."},
 		{"watch", "Helps keep track of time."},
 	};
-	
+
 	//picking a random word from the choices 
 	srand(static_cast<unsigned int>(time(0)));
-	int choice = (rand() % NUM_WORDS);
-	string theWord = WORDS[choice][WORD]; //word guess
-	string theHint = WORDS[choice][HINT];//corresponding hint
+	for (int i = 0; i < 3; i++) {
+		int choice = (rand() % NUM_WORDS);
+		string theWord = WORDS[choice][WORD]; //word guess
+		string theHint = WORDS[choice][HINT];//corresponding hint
 
-	string jumble = theWord; //variable for scrambled version of word
-	int length = jumble.size();
-	for (int i = 0; i < length; i++)
-	{
-		int index1 = (rand() % length);
-		int index2 = (rand() % length);
-		char temp = jumble[index1];
-		jumble[index1] = jumble[index2];
-		jumble[index2] = temp;
+		string jumble = theWord; //variable for scrambled version of word
+		int length = jumble.size();
+		for (int j = 0; j < length; j++)
+		{
+			int index1 = (rand() % length);
+			int index2 = (rand() % length);
+			char temp = jumble[index1];
+			jumble[index1] = jumble[index2];
+			jumble[index2] = temp;
+		}
+		string guess;
+		do
+		{
+			cout << "This is the keyword " << jumble << endl;
+			cout << "Enter guess";
+			cin >> guess;
+
+			if (guess == theWord)
+			{
+				cout << "guess was correct" << endl;
+			}
+			
+			else if(guess == "hint")
+			{
+				cout << theHint << endl;
+			}
+			else if (guess == "quit")
+			{
+				cout << "quitting round" << endl;
+			}
+			else
+			{
+				cout << "guess was incorrect " << endl;
+			}
+			
+		} while (guess != theWord && guess != "quit");
+
+		if (guess != "quit")
+		{
+			cout << "You got it! Here are your stats:" << endl;
+			cout << "Number of guesses: " << "\n\n";
+		}
 	}
 }
