@@ -44,12 +44,15 @@ int main()
 			jumble[index2] = temp;
 		}
 		string guess;
+		int guessCounter = 0;
 		do
 		{
 			cout << "This is the keyword " << jumble << endl;
-			cout << "Enter guess";
+			cout << "Enter guess ";
 			cin >> guess;
 
+			guessCounter++;
+			
 			if (guess == theWord)
 			{
 				cout << "guess was correct" << endl;
@@ -58,6 +61,7 @@ int main()
 			else if(guess == "hint")
 			{
 				cout << theHint << endl;
+				guessCounter--;
 			}
 			else if (guess == "quit")
 			{
@@ -70,10 +74,14 @@ int main()
 			
 		} while (guess != theWord && guess != "quit");
 
-		if (guess != "quit")
+		if (guess == "quit")
+		{
+			break;
+		}
+		else
 		{
 			cout << "You got it! Here are your stats:" << endl;
-			cout << "Number of guesses: " << "\n\n";
+			cout << "Number of guesses: "<< guessCounter << "\n\n";
 		}
 	}
 }
